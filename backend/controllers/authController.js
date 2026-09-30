@@ -3,26 +3,49 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const User = require("../models/User");
 
+// Email validation
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Register
+
+// ==================== REGISTER ====================
+
 const register = async (req, res) => {
     try {
+        console.log("REGISTER REQUEST RECEIVED");
+
         const { name, email, password } = req.body;
 
-        // Server-side validation
+        console.log("REGISTER DATA RECEIVED");
+
+        // Required fields
         if (!name || !email || !password) {
             return res.status(400).json({
                 message: "Name, email and password are required"
             });
         }
 
+        // Email validation
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({
+                message: "Please enter a valid email address"
+            });
+        }
+
+        // Password validation
         if (password.length < 6) {
             return res.status(400).json({
                 message: "Password must be at least 6 characters"
             });
         }
 
-        const existingUser = await User.findOne({ email });
+        console.log("CHECKING USER IN DATABASE");
+
+        // Check existing user
+        const existingUser = await User.findOne({
+            email: email.toLowerCase()
+        });
+
+        console.log("DATABASE CHECK COMPLETED");
 
         if (existingUser) {
             return res.status(400).json({
@@ -30,35 +53,55 @@ const register = async (req, res) => {
             });
         }
 
+        console.log("HASHING PASSWORD");
+
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        console.log("PASSWORD HASHED");
+
+        console.log("CREATING USER");
+
+        // Create user
         const user = await User.create({
             name,
-            email,
+            email: email.toLowerCase(),
             password: hashedPassword,
             role: "student"
         });
 
-        res.status(201).json({
+        console.log("USER CREATED");
+
+        return res.status(201).json({
             message: "User registered successfully",
             userId: user._id
         });
 
     } catch (error) {
-        res.status(500).json({
-            message: "Registration failed",
-            error: error.message
+        console.error("REGISTRATION ERROR:", error);
+
+        return res.status(500).json({
+            message: "Registration failed"
         });
     }
 };
 
 
-// Login
+// ==================== LOGIN ====================
+
 const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await User.findOne({ email });
+        if (!email || !password) {
+            return res.status(400).json({
+                message: "Email and password are required"
+            });
+        }
+
+        const user = await User.findOne({
+            email: email.toLowerCase()
+        });
 
         if (!user) {
             return res.status(401).json({
@@ -88,26 +131,36 @@ const login = async (req, res) => {
             }
         );
 
-        res.json({
+        return res.json({
             message: "Login successful",
             token
         });
 
     } catch (error) {
-        res.status(500).json({
-            message: "Login failed",
-            error: error.message
+        console.error("LOGIN ERROR:", error);
+
+        return res.status(500).json({
+            message: "Login failed"
         });
     }
 };
 
 
-// Forgot password
+// ==================== FORGOT PASSWORD ====================
+
 const forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
 
-        const user = await User.findOne({ email });
+        if (!email) {
+            return res.status(400).json({
+                message: "Email is required"
+            });
+        }
+
+        const user = await User.findOne({
+            email: email.toLowerCase()
+        });
 
         if (!user) {
             return res.status(404).json({
@@ -123,21 +176,23 @@ const forgotPassword = async (req, res) => {
 
         await user.save();
 
-        res.json({
+        return res.json({
             message: "Password reset token generated",
             resetToken
         });
 
     } catch (error) {
-        res.status(500).json({
-            message: "Failed to generate reset token",
-            error: error.message
+        console.error("FORGOT PASSWORD ERROR:", error);
+
+        return res.status(500).json({
+            message: "Failed to generate reset token"
         });
     }
 };
 
 
-// Reset password
+// ==================== RESET PASSWORD ====================
+
 const resetPassword = async (req, res) => {
     try {
         const { token } = req.params;
@@ -148,14 +203,6 @@ const resetPassword = async (req, res) => {
                 message: "Password must be at least 6 characters"
             });
         }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-if (!emailRegex.test(email)) {
-    return res.status(400).json({
-        message: "Please enter a valid email address"
-    });
-}
 
         const user = await User.findOne({
             resetPasswordToken: token,
@@ -181,18 +228,21 @@ if (!emailRegex.test(email)) {
 
         await user.save();
 
-        res.json({
+        return res.json({
             message: "Password reset successfully"
         });
 
     } catch (error) {
-        res.status(500).json({
-            message: "Failed to reset password",
-            error: error.message
+        console.error("RESET PASSWORD ERROR:", error);
+
+        return res.status(500).json({
+            message: "Failed to reset password"
         });
     }
 };
 
+
+// ==================== EXPORT ====================
 
 module.exports = {
     register,
