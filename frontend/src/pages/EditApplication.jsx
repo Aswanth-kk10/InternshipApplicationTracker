@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../services/api";
 
 function EditApplication() {
     const { id } = useParams();
@@ -16,7 +17,7 @@ function EditApplication() {
                 const token = localStorage.getItem("token");
 
                 const response = await axios.get(
-                    `http://localhost:5000/api/v1/applications/${id}`,
+                    `${API_URL}/api/v1/applications/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -48,7 +49,7 @@ function EditApplication() {
             const token = localStorage.getItem("token");
 
             await axios.put(
-                `http://localhost:5000/api/v1/applications/${id}`,
+                `${API_URL}/api/v1/applications/${id}`,
                 {
                     company,
                     position,
@@ -78,9 +79,11 @@ function EditApplication() {
             <h1>Edit Internship Application</h1>
 
             <form onSubmit={handleSubmit}>
+
                 <div>
                     <label>Company</label>
                     <br />
+
                     <input
                         type="text"
                         value={company}
@@ -94,6 +97,7 @@ function EditApplication() {
                 <div>
                     <label>Position</label>
                     <br />
+
                     <input
                         type="text"
                         value={position}
@@ -125,6 +129,7 @@ function EditApplication() {
                 <button type="submit">
                     Update Application
                 </button>
+
             </form>
         </div>
     );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import API_URL from "../services/api";
 
 function Register() {
     const [name, setName] = useState("");
@@ -11,7 +12,7 @@ function Register() {
 
         try {
             await axios.post(
-                "http://localhost:5000/api/v1/auth/register",
+                `${API_URL}/api/v1/auth/register`,
                 {
                     name,
                     email,
@@ -27,13 +28,13 @@ function Register() {
             setPassword("");
 
         } catch (error) {
-    alert(
-        error.response?.data?.error ||
-        error.response?.data?.message ||
-        error.message ||
-        "Registration failed"
-    );
-}
+            alert(
+                error.response?.data?.error ||
+                error.response?.data?.message ||
+                error.message ||
+                "Registration failed"
+            );
+        }
     };
 
     return (
@@ -43,9 +44,11 @@ function Register() {
             <h2>Register</h2>
 
             <form onSubmit={handleRegister}>
+
                 <div>
                     <label>Name</label>
                     <br />
+
                     <input
                         type="text"
                         value={name}
@@ -59,6 +62,7 @@ function Register() {
                 <div>
                     <label>Email</label>
                     <br />
+
                     <input
                         type="email"
                         value={email}
@@ -72,6 +76,7 @@ function Register() {
                 <div>
                     <label>Password</label>
                     <br />
+
                     <input
                         type="password"
                         value={password}
@@ -85,6 +90,7 @@ function Register() {
                 <button type="submit">
                     Register
                 </button>
+
             </form>
         </div>
     );

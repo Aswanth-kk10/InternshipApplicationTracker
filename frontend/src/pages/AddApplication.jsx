@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import API_URL from "../services/api";
 
 function AddApplication() {
     const [company, setCompany] = useState("");
@@ -13,7 +14,7 @@ function AddApplication() {
             const token = localStorage.getItem("token");
 
             await axios.post(
-                "http://localhost:5000/api/v1/applications",
+                `${API_URL}/api/v1/applications`,
                 {
                     company,
                     position,
@@ -45,9 +46,11 @@ function AddApplication() {
             <h1>Add Internship Application</h1>
 
             <form onSubmit={handleSubmit}>
+
                 <div>
                     <label>Company</label>
                     <br />
+
                     <input
                         type="text"
                         value={company}
@@ -61,6 +64,7 @@ function AddApplication() {
                 <div>
                     <label>Position</label>
                     <br />
+
                     <input
                         type="text"
                         value={position}
@@ -74,6 +78,7 @@ function AddApplication() {
                 <div>
                     <label>Status</label>
                     <br />
+
                     <select
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
@@ -91,6 +96,7 @@ function AddApplication() {
                 <button type="submit">
                     Add Application
                 </button>
+
             </form>
         </div>
     );

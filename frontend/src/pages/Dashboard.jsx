@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../services/api";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ function Dashboard() {
             const token = localStorage.getItem("token");
 
             const response = await axios.get(
-                "http://localhost:5000/api/v1/applications",
+                `${API_URL}/api/v1/applications`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -74,7 +75,7 @@ function Dashboard() {
             const token = localStorage.getItem("token");
 
             await axios.delete(
-                `http://localhost:5000/api/v1/applications/${id}`,
+                `${API_URL}/api/v1/applications/${id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
