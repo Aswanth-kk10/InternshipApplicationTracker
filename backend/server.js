@@ -9,7 +9,7 @@ const rateLimit = require("express-rate-limit");
 
 const app = express();
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 
 // Parse JSON requests
@@ -17,28 +17,13 @@ app.use(express.json());
 
 
 // CORS configuration
-app.use((req, res, next) => {
-    res.header(
-        "Access-Control-Allow-Origin",
-        "http://localhost:5173"
-    );
-
-    res.header(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-    );
-
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization"
-    );
-
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(204);
-    }
-
-    next();
-});
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"]
+    })
+);
 
 
 // Security headers
@@ -75,9 +60,9 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log("MongoDB connected successfully");
 
-        app.listen(PORT, () => {
+        app.listen(PORT, "0.0.0.0", () => {
             console.log(
-                `Server running on http://localhost:${PORT}`
+                `Server running on port ${PORT}`
             );
         });
     })
