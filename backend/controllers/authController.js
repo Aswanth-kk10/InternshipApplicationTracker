@@ -11,11 +11,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const register = async (req, res) => {
     try {
-        console.log("REGISTER REQUEST RECEIVED");
-
         const { name, email, password } = req.body;
-
-        console.log("REGISTER DATA RECEIVED");
 
         // Required fields
         if (!name || !email || !password) {
@@ -38,14 +34,10 @@ const register = async (req, res) => {
             });
         }
 
-        console.log("CHECKING USER IN DATABASE");
-
-        // Check existing user
+        // Check if user already exists
         const existingUser = await User.findOne({
             email: email.toLowerCase()
         });
-
-        console.log("DATABASE CHECK COMPLETED");
 
         if (existingUser) {
             return res.status(400).json({
@@ -53,14 +45,8 @@ const register = async (req, res) => {
             });
         }
 
-        console.log("HASHING PASSWORD");
-
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        console.log("PASSWORD HASHED");
-
-        console.log("CREATING USER");
 
         // Create user
         const user = await User.create({
@@ -69,8 +55,6 @@ const register = async (req, res) => {
             password: hashedPassword,
             role: "student"
         });
-
-        console.log("USER CREATED");
 
         return res.status(201).json({
             message: "User registered successfully",
@@ -93,12 +77,14 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        // Required fields
         if (!email || !password) {
             return res.status(400).json({
                 message: "Email and password are required"
             });
         }
 
+        // Find user
         const user = await User.findOne({
             email: email.toLowerCase()
         });
@@ -109,6 +95,7 @@ const login = async (req, res) => {
             });
         }
 
+        // Check password
         const passwordMatch = await bcrypt.compare(
             password,
             user.password
@@ -120,6 +107,7 @@ const login = async (req, res) => {
             });
         }
 
+        // Generate JWT
         const token = jwt.sign(
             {
                 userId: user._id,
@@ -158,6 +146,7 @@ const forgotPassword = async (req, res) => {
             });
         }
 
+        // Find user
         const user = await User.findOne({
             email: email.toLowerCase()
         });
@@ -168,6 +157,7 @@ const forgotPassword = async (req, res) => {
             });
         }
 
+        // Generate reset token
         const resetToken = crypto.randomBytes(32).toString("hex");
 
         user.resetPasswordToken = resetToken;
@@ -198,12 +188,14 @@ const resetPassword = async (req, res) => {
         const { token } = req.params;
         const { password } = req.body;
 
+        // Password validation
         if (!password || password.length < 6) {
             return res.status(400).json({
                 message: "Password must be at least 6 characters"
             });
         }
 
+        // Find valid reset token
         const user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordExpires: {
@@ -217,11 +209,13 @@ const resetPassword = async (req, res) => {
             });
         }
 
+        // Hash new password
         const hashedPassword = await bcrypt.hash(
             password,
             10
         );
 
+        // Update password
         user.password = hashedPassword;
         user.resetPasswordToken = null;
         user.resetPasswordExpires = null;
