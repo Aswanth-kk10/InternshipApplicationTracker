@@ -1,16 +1,26 @@
 # Internship Application Tracker
 
-A full-stack web application for students to track their internship applications.
+A full-stack web application that allows students to manage and track their internship applications.
+
+## Live Application
+
+Frontend:
+https://internship-application-tracker-nu.vercel.app
+
+Backend API:
+https://internshipapplicationtracker.onrender.com
 
 ## Technologies Used
 
 ### Frontend
+
 - React.js
 - React Router
 - Axios
 - Vite
 
 ### Backend
+
 - Node.js
 - Express.js
 - MongoDB
@@ -18,16 +28,11 @@ A full-stack web application for students to track their internship applications
 - JWT
 - bcryptjs
 
-### Security
-- JWT authentication
-- Role-based access control
-- Password hashing
-- Server-side validation
-- Helmet security headers
-- Rate limiting
-- CORS protection
-- Protected frontend routes
-- Environment variables
+### Deployment
+
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
 
 ## Features
 
@@ -56,6 +61,20 @@ Applications can have the following statuses:
 - Selected
 - Rejected
 
+## Security
+
+The application implements:
+
+- JWT-based authentication
+- Password hashing using bcryptjs
+- Role-based access control
+- Server-side input validation
+- Helmet security headers
+- Rate limiting
+- CORS configuration
+- Protected frontend routes
+- Environment variables for sensitive configuration
+
 ## Project Structure
 
 ```text
@@ -67,7 +86,6 @@ InternshipApplicationTracker
 │   ├── models
 │   ├── routes
 │   ├── utils
-│   ├── .env
 │   ├── package.json
 │   └── server.js
 │
@@ -75,6 +93,7 @@ InternshipApplicationTracker
 │   ├── public
 │   ├── src
 │   ├── package.json
+│   ├── vercel.json
 │   └── vite.config.js
 │
 ├── .env.example
