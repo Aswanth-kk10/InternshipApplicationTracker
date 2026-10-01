@@ -40,4 +40,7 @@ const userSchema = new mongoose.Schema(
     }
 );
 
+// Database index for faster password reset token lookup
+userSchema.index({ resetPasswordToken: 1 });
+
 module.exports = mongoose.model("User", userSchema);

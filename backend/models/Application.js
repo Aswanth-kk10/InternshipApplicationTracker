@@ -40,4 +40,7 @@ const applicationSchema = new mongoose.Schema(
     }
 );
 
+// Database index for faster student application queries
+applicationSchema.index({ student: 1 });
+
 module.exports = mongoose.model("Application", applicationSchema);
