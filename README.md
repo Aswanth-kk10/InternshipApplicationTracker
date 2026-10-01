@@ -1,13 +1,13 @@
 # Internship Application Tracker
 
-A full-stack web application that allows students to manage and track their internship applications.
+A full-stack web application that allows students to manage and track their internship applications in one place.
 
 ## Live Application
 
-Frontend:
+**Frontend:**  
 https://internship-application-tracker-nu.vercel.app
 
-Backend API:
+**Backend API:**  
 https://internshipapplicationtracker.onrender.com
 
 ## Technologies Used
