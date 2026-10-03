@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import API_URL from "../services/api";
 import "./AddApplication.css";
 
 function AddApplication() {
+    const navigate = useNavigate();
+
     const [company, setCompany] = useState("");
     const [position, setPosition] = useState("");
     const [status, setStatus] = useState("Applied");
@@ -30,9 +33,8 @@ function AddApplication() {
 
             alert("Application added successfully!");
 
-            setCompany("");
-            setPosition("");
-            setStatus("Applied");
+            // Go back to Dashboard after successful submission
+            navigate("/dashboard");
 
         } catch (error) {
             alert(
@@ -42,6 +44,10 @@ function AddApplication() {
         }
     };
 
+    const handleCancel = () => {
+        navigate("/dashboard");
+    };
+
     return (
         <div className="add-application-page">
 
@@ -49,10 +55,13 @@ function AddApplication() {
 
                 {/* Header */}
                 <div className="add-application-header">
-                    <div className="header-icon">💼</div>
+                    <div className="header-icon">
+                        💼
+                    </div>
 
                     <div>
                         <h1>Add Internship Application</h1>
+
                         <p>
                             Keep track of a new internship application
                         </p>
@@ -64,6 +73,7 @@ function AddApplication() {
 
                     <div className="form-card-header">
                         <h2>Application Details</h2>
+
                         <p>
                             Enter the details of the internship you applied for.
                         </p>
@@ -73,6 +83,7 @@ function AddApplication() {
 
                         {/* Company */}
                         <div className="form-group">
+
                             <label htmlFor="company">
                                 Company
                             </label>
@@ -85,10 +96,12 @@ function AddApplication() {
                                 onChange={(e) => setCompany(e.target.value)}
                                 required
                             />
+
                         </div>
 
                         {/* Position */}
                         <div className="form-group">
+
                             <label htmlFor="position">
                                 Position
                             </label>
@@ -101,10 +114,12 @@ function AddApplication() {
                                 onChange={(e) => setPosition(e.target.value)}
                                 required
                             />
+
                         </div>
 
                         {/* Status */}
                         <div className="form-group">
+
                             <label htmlFor="status">
                                 Application Status
                             </label>
@@ -114,12 +129,27 @@ function AddApplication() {
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value)}
                             >
-                                <option value="Applied">Applied</option>
-                                <option value="Shortlisted">Shortlisted</option>
-                                <option value="Interview">Interview</option>
-                                <option value="Selected">Selected</option>
-                                <option value="Rejected">Rejected</option>
+                                <option value="Applied">
+                                    Applied
+                                </option>
+
+                                <option value="Shortlisted">
+                                    Shortlisted
+                                </option>
+
+                                <option value="Interview">
+                                    Interview
+                                </option>
+
+                                <option value="Selected">
+                                    Selected
+                                </option>
+
+                                <option value="Rejected">
+                                    Rejected
+                                </option>
                             </select>
+
                         </div>
 
                         {/* Buttons */}
@@ -128,7 +158,7 @@ function AddApplication() {
                             <button
                                 type="button"
                                 className="cancel-button"
-                                onClick={() => window.history.back()}
+                                onClick={handleCancel}
                             >
                                 ← Cancel
                             </button>
@@ -148,14 +178,18 @@ function AddApplication() {
 
                 {/* Tip */}
                 <div className="application-tip">
+
                     <span>💡</span>
+
                     <div>
                         <strong>Tip</strong>
+
                         <p>
                             Keep your application status updated so you can
                             easily track your internship progress.
                         </p>
                     </div>
+
                 </div>
 
             </div>
