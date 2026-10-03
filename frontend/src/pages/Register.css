@@ -1,0 +1,397 @@
+/* ================================
+   REGISTER PAGE
+================================ */
+
+.register-page {
+    min-height: 100vh;
+    display: flex;
+
+    background: #0f1117;
+    color: #ffffff;
+
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+
+/* ================================
+   LEFT HERO
+================================ */
+
+.register-hero {
+    width: 50%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(99, 102, 241, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #111827,
+            #171329
+        );
+}
+
+.register-hero-content {
+    max-width: 500px;
+}
+
+.register-brand-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(99, 102, 241, 0.15);
+
+    border: 1px solid rgba(129, 140, 248, 0.3);
+
+    border-radius: 16px;
+
+    font-size: 28px;
+
+    margin-bottom: 30px;
+}
+
+.register-hero-content h1 {
+    margin: 0;
+
+    font-size: 52px;
+    line-height: 1.05;
+
+    font-weight: 750;
+
+    letter-spacing: -2px;
+}
+
+.register-hero-content > p {
+    margin-top: 25px;
+
+    max-width: 430px;
+
+    color: #aeb4c2;
+
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* ================================
+   FEATURES
+================================ */
+
+.register-features {
+    margin-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.register-feature {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+}
+
+.register-feature span {
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #6366f1;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.register-feature p {
+    margin: 0;
+
+    color: #d5d9e2;
+
+    font-size: 15px;
+}
+
+
+/* ================================
+   RIGHT SECTION
+================================ */
+
+.register-section {
+    width: 50%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: #0f1117;
+}
+
+.register-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 42px;
+
+    background: #171a23;
+
+    border: 1px solid #272c38;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ================================
+   HEADING
+================================ */
+
+.register-heading {
+    margin-bottom: 30px;
+}
+
+.register-heading h2 {
+    margin: 0;
+
+    font-size: 28px;
+
+    font-weight: 700;
+}
+
+.register-heading p {
+    margin-top: 9px;
+
+    color: #8f96a5;
+
+    font-size: 14px;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+.register-form-group {
+    margin-bottom: 20px;
+}
+
+.register-form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #d9dce5;
+
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+.register-form-group input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    background: #10131a;
+
+    border: 1px solid #303542;
+
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.register-form-group input::placeholder {
+    color: #646b79;
+}
+
+.register-form-group input:focus {
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+
+/* ================================
+   REGISTER BUTTON
+================================ */
+
+.register-button {
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #6366f1,
+        #8b5cf6
+    );
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.register-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 25px rgba(99, 102, 241, 0.3);
+}
+
+.register-button:active {
+    transform: translateY(0);
+}
+
+
+/* ================================
+   LOGIN LINK
+================================ */
+
+.login-link {
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #292e39;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    font-size: 14px;
+
+    color: #858c9a;
+}
+
+.login-link a {
+    color: #a5b4fc;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 850px) {
+
+    .register-page {
+        flex-direction: column;
+    }
+
+    .register-hero {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 45px 30px;
+    }
+
+    .register-hero-content {
+        max-width: 600px;
+    }
+
+    .register-hero-content h1 {
+        font-size: 40px;
+    }
+
+    .register-features {
+        display: none;
+    }
+
+    .register-section {
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 30px 20px 50px;
+    }
+
+    .register-card {
+        max-width: 500px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .register-hero {
+        padding: 35px 22px;
+    }
+
+    .register-hero-content h1 {
+        font-size: 34px;
+    }
+
+    .register-hero-content > p {
+        font-size: 15px;
+    }
+
+    .register-section {
+        padding: 20px 15px 40px;
+    }
+
+    .register-card {
+        padding: 28px 22px;
+    }
+
+    .register-heading h2 {
+        font-size: 25px;
+    }
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import API_URL from "../services/api";
+import "./Register.css";
 
 function Register() {
     const [name, setName] = useState("");
@@ -38,60 +39,164 @@ function Register() {
     };
 
     return (
-        <div>
-            <h1>Internship Application Tracker</h1>
+        <div className="register-page">
 
-            <h2>Register</h2>
+            {/* LEFT SIDE */}
+            <div className="register-hero">
 
-            <form onSubmit={handleRegister}>
+                <div className="register-hero-content">
 
-                <div>
-                    <label>Name</label>
-                    <br />
+                    <div className="register-brand-icon">
+                        💼
+                    </div>
 
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
+                    <h1>
+                        Start Your
+                        <br />
+                        Internship
+                        <br />
+                        Journey
+                    </h1>
+
+                    <p>
+                        Create your account and start organizing
+                        your internship applications in one place.
+                    </p>
+
+                    <div className="register-features">
+
+                        <div className="register-feature">
+                            <span>✓</span>
+                            <p>Keep your applications organized</p>
+                        </div>
+
+                        <div className="register-feature">
+                            <span>✓</span>
+                            <p>Track your interview progress</p>
+                        </div>
+
+                        <div className="register-feature">
+                            <span>✓</span>
+                            <p>Never lose track of an opportunity</p>
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <br />
+            </div>
 
-                <div>
-                    <label>Email</label>
-                    <br />
 
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+            {/* RIGHT SIDE */}
+            <div className="register-section">
+
+                <div className="register-card">
+
+                    <div className="register-heading">
+
+                        <h2>
+                            Create your account ✨
+                        </h2>
+
+                        <p>
+                            Start tracking your internship applications
+                        </p>
+
+                    </div>
+
+
+                    <form onSubmit={handleRegister}>
+
+                        {/* NAME */}
+                        <div className="register-form-group">
+
+                            <label htmlFor="name">
+                                Full Name
+                            </label>
+
+                            <input
+                                id="name"
+                                type="text"
+                                placeholder="Enter your name"
+                                value={name}
+                                onChange={(e) =>
+                                    setName(e.target.value)
+                                }
+                                required
+                            />
+
+                        </div>
+
+
+                        {/* EMAIL */}
+                        <div className="register-form-group">
+
+                            <label htmlFor="email">
+                                Email
+                            </label>
+
+                            <input
+                                id="email"
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) =>
+                                    setEmail(e.target.value)
+                                }
+                                required
+                            />
+
+                        </div>
+
+
+                        {/* PASSWORD */}
+                        <div className="register-form-group">
+
+                            <label htmlFor="password">
+                                Password
+                            </label>
+
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="Create a password"
+                                value={password}
+                                onChange={(e) =>
+                                    setPassword(e.target.value)
+                                }
+                                required
+                            />
+
+                        </div>
+
+
+                        {/* REGISTER BUTTON */}
+                        <button
+                            type="submit"
+                            className="register-button"
+                        >
+                            Create Account
+                        </button>
+
+                    </form>
+
+
+                    <div className="login-link">
+
+                        <span>
+                            Already have an account?
+                        </span>
+
+                        <a href="/">
+                            Login
+                        </a>
+
+                    </div>
+
                 </div>
 
-                <br />
+            </div>
 
-                <div>
-                    <label>Password</label>
-                    <br />
-
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <br />
-
-                <button type="submit">
-                    Register
-                </button>
-
-            </form>
         </div>
     );
 }
