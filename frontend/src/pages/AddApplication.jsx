@@ -11,6 +11,28 @@ function AddApplication() {
     const [position, setPosition] = useState("");
     const [status, setStatus] = useState("Applied");
 
+    const [notification, setNotification] = useState({
+        show: false,
+        type: "",
+        message: ""
+    });
+
+    const showNotification = (type, message) => {
+        setNotification({
+            show: true,
+            type,
+            message
+        });
+
+        setTimeout(() => {
+            setNotification({
+                show: false,
+                type: "",
+                message: ""
+            });
+        }, 2500);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -31,13 +53,19 @@ function AddApplication() {
                 }
             );
 
-            alert("Application added successfully!");
+            showNotification(
+                "success",
+                "Application added successfully!"
+            );
 
-            // Go back to Dashboard after successful submission
-            navigate("/dashboard");
+            // Give the toast a moment to appear
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 1000);
 
         } catch (error) {
-            alert(
+            showNotification(
+                "error",
                 error.response?.data?.message ||
                 "Failed to add application"
             );
@@ -50,6 +78,30 @@ function AddApplication() {
 
     return (
         <div className="add-application-page">
+
+            {/* TOAST NOTIFICATION */}
+            {notification.show && (
+                <div
+                    className={`add-application-toast ${notification.type}`}
+                    role="alert"
+                >
+                    <div className="add-application-toast-icon">
+                        {notification.type === "success" ? "✓" : "!"}
+                    </div>
+
+                    <div className="add-application-toast-content">
+                        <strong>
+                            {notification.type === "success"
+                                ? "Success"
+                                : "Something went wrong"}
+                        </strong>
+
+                        <span>
+                            {notification.message}
+                        </span>
+                    </div>
+                </div>
+            )}
 
             <div className="add-application-container">
 

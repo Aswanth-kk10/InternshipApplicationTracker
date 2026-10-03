@@ -8,6 +8,28 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [notification, setNotification] = useState({
+        show: false,
+        type: "",
+        message: ""
+    });
+
+    const showNotification = (type, message) => {
+        setNotification({
+            show: true,
+            type,
+            message
+        });
+
+        setTimeout(() => {
+            setNotification({
+                show: false,
+                type: "",
+                message: ""
+            });
+        }, 2500);
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -22,14 +44,18 @@ function Register() {
                 }
             );
 
-            alert("Registration successful!");
+            showNotification(
+                "success",
+                "Registration successful! Your account is ready 🎉"
+            );
 
             setName("");
             setEmail("");
             setPassword("");
 
         } catch (error) {
-            alert(
+            showNotification(
+                "error",
                 error.response?.data?.error ||
                 error.response?.data?.message ||
                 error.message ||
@@ -40,6 +66,30 @@ function Register() {
 
     return (
         <div className="register-page">
+
+            {/* TOAST NOTIFICATION */}
+            {notification.show && (
+                <div
+                    className={`register-toast ${notification.type}`}
+                    role="alert"
+                >
+                    <div className="register-toast-icon">
+                        {notification.type === "success" ? "✓" : "!"}
+                    </div>
+
+                    <div className="register-toast-content">
+                        <strong>
+                            {notification.type === "success"
+                                ? "Success"
+                                : "Registration failed"}
+                        </strong>
+
+                        <span>
+                            {notification.message}
+                        </span>
+                    </div>
+                </div>
+            )}
 
             {/* LEFT SIDE */}
             <div className="register-hero">
@@ -86,7 +136,6 @@ function Register() {
 
             </div>
 
-
             {/* RIGHT SIDE */}
             <div className="register-section">
 
@@ -103,7 +152,6 @@ function Register() {
                         </p>
 
                     </div>
-
 
                     <form onSubmit={handleRegister}>
 
@@ -127,7 +175,6 @@ function Register() {
 
                         </div>
 
-
                         {/* EMAIL */}
                         <div className="register-form-group">
 
@@ -147,7 +194,6 @@ function Register() {
                             />
 
                         </div>
-
 
                         {/* PASSWORD */}
                         <div className="register-form-group">
@@ -169,7 +215,6 @@ function Register() {
 
                         </div>
 
-
                         {/* REGISTER BUTTON */}
                         <button
                             type="submit"
@@ -179,7 +224,6 @@ function Register() {
                         </button>
 
                     </form>
-
 
                     <div className="login-link">
 

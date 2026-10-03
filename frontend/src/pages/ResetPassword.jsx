@@ -11,11 +11,36 @@ function ResetPassword() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
+    const [notification, setNotification] = useState({
+        show: false,
+        type: "",
+        message: ""
+    });
+
+    const showNotification = (type, message) => {
+        setNotification({
+            show: true,
+            type,
+            message
+        });
+
+        setTimeout(() => {
+            setNotification({
+                show: false,
+                type: "",
+                message: ""
+            });
+        }, 2500);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            showNotification(
+                "error",
+                "Passwords do not match!"
+            );
             return;
         }
 
@@ -27,12 +52,18 @@ function ResetPassword() {
                 }
             );
 
-            alert("Password reset successfully!");
+            showNotification(
+                "success",
+                "Password reset successfully! Redirecting to login..."
+            );
 
-            navigate("/login");
+            setTimeout(() => {
+                navigate("/login");
+            }, 1200);
 
         } catch (error) {
-            alert(
+            showNotification(
+                "error",
                 error.response?.data?.message ||
                 "Failed to reset password"
             );
@@ -41,6 +72,30 @@ function ResetPassword() {
 
     return (
         <div className="reset-password-page">
+
+            {/* TOAST NOTIFICATION */}
+            {notification.show && (
+                <div
+                    className={`reset-password-toast ${notification.type}`}
+                    role="alert"
+                >
+                    <div className="reset-password-toast-icon">
+                        {notification.type === "success" ? "✓" : "!"}
+                    </div>
+
+                    <div className="reset-password-toast-content">
+                        <strong>
+                            {notification.type === "success"
+                                ? "Success"
+                                : "Something went wrong"}
+                        </strong>
+
+                        <span>
+                            {notification.message}
+                        </span>
+                    </div>
+                </div>
+            )}
 
             <div className="reset-password-container">
 

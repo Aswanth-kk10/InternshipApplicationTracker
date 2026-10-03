@@ -9,6 +9,28 @@ function ForgotPassword() {
 
     const [email, setEmail] = useState("");
 
+    const [notification, setNotification] = useState({
+        show: false,
+        type: "",
+        message: ""
+    });
+
+    const showNotification = (type, message) => {
+        setNotification({
+            show: true,
+            type,
+            message
+        });
+
+        setTimeout(() => {
+            setNotification({
+                show: false,
+                type: "",
+                message: ""
+            });
+        }, 2500);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -20,13 +42,19 @@ function ForgotPassword() {
 
             const token = response.data.resetToken;
 
-            alert("Password reset token generated!");
+            showNotification(
+                "success",
+                "Reset link generated! Opening password reset..."
+            );
 
             // Automatically open Reset Password page
-            navigate(`/reset-password/${token}`);
+            setTimeout(() => {
+                navigate(`/reset-password/${token}`);
+            }, 1000);
 
         } catch (error) {
-            alert(
+            showNotification(
+                "error",
                 error.response?.data?.message ||
                 "Failed to generate reset token"
             );
@@ -35,6 +63,30 @@ function ForgotPassword() {
 
     return (
         <div className="forgot-password-page">
+
+            {/* TOAST NOTIFICATION */}
+            {notification.show && (
+                <div
+                    className={`forgot-password-toast ${notification.type}`}
+                    role="alert"
+                >
+                    <div className="forgot-password-toast-icon">
+                        {notification.type === "success" ? "✓" : "!"}
+                    </div>
+
+                    <div className="forgot-password-toast-content">
+                        <strong>
+                            {notification.type === "success"
+                                ? "Success"
+                                : "Something went wrong"}
+                        </strong>
+
+                        <span>
+                            {notification.message}
+                        </span>
+                    </div>
+                </div>
+            )}
 
             <div className="forgot-password-container">
 

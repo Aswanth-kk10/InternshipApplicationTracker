@@ -11,11 +11,40 @@ function Dashboard() {
     const [allApplications, setAllApplications] = useState([]);
     const [statusFilter, setStatusFilter] = useState("All");
 
+    const [notification, setNotification] = useState({
+        show: false,
+        type: "",
+        message: ""
+    });
+
+    const showNotification = (type, message) => {
+        setNotification({
+            show: true,
+            type,
+            message
+        });
+
+        setTimeout(() => {
+            setNotification({
+                show: false,
+                type: "",
+                message: ""
+            });
+        }, 2500);
+    };
+
     // Logout
     const handleLogout = () => {
         localStorage.removeItem("token");
-        alert("Logged out successfully!");
-        navigate("/login");
+
+        showNotification(
+            "success",
+            "Logged out successfully! See you soon 👋"
+        );
+
+        setTimeout(() => {
+            navigate("/login");
+        }, 1000);
     };
 
     // Get applications
@@ -87,12 +116,16 @@ function Dashboard() {
                 }
             );
 
-            alert("Application deleted successfully!");
+            showNotification(
+                "success",
+                "Application deleted successfully!"
+            );
 
             fetchApplications();
 
         } catch (error) {
-            alert(
+            showNotification(
+                "error",
                 error.response?.data?.message ||
                 "Failed to delete application"
             );
@@ -122,6 +155,30 @@ function Dashboard() {
 
     return (
         <div className="dashboard-page">
+
+            {/* TOAST NOTIFICATION */}
+            {notification.show && (
+                <div
+                    className={`dashboard-toast ${notification.type}`}
+                    role="alert"
+                >
+                    <div className="dashboard-toast-icon">
+                        {notification.type === "success" ? "✓" : "!"}
+                    </div>
+
+                    <div className="dashboard-toast-content">
+                        <strong>
+                            {notification.type === "success"
+                                ? "Success"
+                                : "Something went wrong"}
+                        </strong>
+
+                        <span>
+                            {notification.message}
+                        </span>
+                    </div>
+                </div>
+            )}
 
             {/* ================= HEADER ================= */}
 
@@ -159,6 +216,7 @@ function Dashboard() {
                 <section className="dashboard-welcome">
 
                     <div>
+
                         <p className="welcome-small">
                             Welcome back 👋
                         </p>
@@ -171,6 +229,7 @@ function Dashboard() {
                             Keep track of your internship applications
                             and monitor your progress.
                         </p>
+
                     </div>
 
                     <Link
@@ -313,6 +372,7 @@ function Dashboard() {
                                 value={statusFilter}
                                 onChange={handleFilter}
                             >
+
                                 <option value="All">
                                     All
                                 </option>

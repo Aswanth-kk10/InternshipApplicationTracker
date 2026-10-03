@@ -12,6 +12,28 @@ function EditApplication() {
     const [position, setPosition] = useState("");
     const [status, setStatus] = useState("Applied");
 
+    const [notification, setNotification] = useState({
+        show: false,
+        type: "",
+        message: ""
+    });
+
+    const showNotification = (type, message) => {
+        setNotification({
+            show: true,
+            type,
+            message
+        });
+
+        setTimeout(() => {
+            setNotification({
+                show: false,
+                type: "",
+                message: ""
+            });
+        }, 2500);
+    };
+
     useEffect(() => {
         const fetchApplication = async () => {
             try {
@@ -33,7 +55,8 @@ function EditApplication() {
                 setStatus(application.status);
 
             } catch (error) {
-                alert(
+                showNotification(
+                    "error",
                     error.response?.data?.message ||
                     "Failed to load application"
                 );
@@ -63,12 +86,18 @@ function EditApplication() {
                 }
             );
 
-            alert("Application updated successfully!");
+            showNotification(
+                "success",
+                "Application updated successfully!"
+            );
 
-            navigate("/dashboard");
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 1000);
 
         } catch (error) {
-            alert(
+            showNotification(
+                "error",
                 error.response?.data?.message ||
                 "Failed to update application"
             );
@@ -81,6 +110,30 @@ function EditApplication() {
 
     return (
         <div className="edit-application-page">
+
+            {/* TOAST NOTIFICATION */}
+            {notification.show && (
+                <div
+                    className={`edit-application-toast ${notification.type}`}
+                    role="alert"
+                >
+                    <div className="edit-application-toast-icon">
+                        {notification.type === "success" ? "✓" : "!"}
+                    </div>
+
+                    <div className="edit-application-toast-content">
+                        <strong>
+                            {notification.type === "success"
+                                ? "Success"
+                                : "Something went wrong"}
+                        </strong>
+
+                        <span>
+                            {notification.message}
+                        </span>
+                    </div>
+                </div>
+            )}
 
             <div className="edit-application-container">
 

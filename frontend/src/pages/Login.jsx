@@ -10,6 +10,28 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [notification, setNotification] = useState({
+        show: false,
+        type: "",
+        message: ""
+    });
+
+    const showNotification = (type, message) => {
+        setNotification({
+            show: true,
+            type,
+            message
+        });
+
+        setTimeout(() => {
+            setNotification({
+                show: false,
+                type: "",
+                message: ""
+            });
+        }, 2500);
+    };
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -28,13 +50,20 @@ function Login() {
                 response.data.token
             );
 
-            alert("Login successful!");
+            // Show success notification
+            showNotification(
+                "success",
+                "Login successful! Welcome back 👋"
+            );
 
-            // Go to dashboard
-            navigate("/dashboard");
+            // Go to dashboard after notification appears
+            setTimeout(() => {
+                navigate("/dashboard");
+            }, 1200);
 
         } catch (error) {
-            alert(
+            showNotification(
+                "error",
                 error.response?.data?.message ||
                 "Login failed"
             );
@@ -43,6 +72,30 @@ function Login() {
 
     return (
         <div className="login-page">
+
+            {/* TOAST NOTIFICATION */}
+            {notification.show && (
+                <div
+                    className={`login-toast ${notification.type}`}
+                    role="alert"
+                >
+                    <div className="toast-icon">
+                        {notification.type === "success" ? "✓" : "!"}
+                    </div>
+
+                    <div className="toast-content">
+                        <strong>
+                            {notification.type === "success"
+                                ? "Success"
+                                : "Login failed"}
+                        </strong>
+
+                        <span>
+                            {notification.message}
+                        </span>
+                    </div>
+                </div>
+            )}
 
             {/* LEFT SIDE */}
             <div className="login-hero">
@@ -89,7 +142,6 @@ function Login() {
 
             </div>
 
-
             {/* RIGHT SIDE */}
             <div className="login-section">
 
@@ -106,7 +158,6 @@ function Login() {
                         </p>
 
                     </div>
-
 
                     <form onSubmit={handleLogin}>
 
@@ -130,7 +181,6 @@ function Login() {
 
                         </div>
 
-
                         {/* PASSWORD */}
                         <div className="form-group">
 
@@ -151,7 +201,6 @@ function Login() {
 
                         </div>
 
-
                         {/* LOGIN BUTTON */}
                         <button
                             type="submit"
@@ -162,7 +211,6 @@ function Login() {
 
                     </form>
 
-
                     {/* FORGOT PASSWORD */}
                     <div className="forgot-password">
 
@@ -171,7 +219,6 @@ function Login() {
                         </Link>
 
                     </div>
-
 
                     {/* REGISTER */}
                     <div className="register-link">

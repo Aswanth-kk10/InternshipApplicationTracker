@@ -523,3 +523,181 @@
         font-size: 23px;
     }
 }
+
+/* ================================
+   LOGIN TOAST NOTIFICATION
+================================ */
+
+.login-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  width: min(380px, calc(100vw - 32px));
+
+  padding: 16px 18px;
+
+  border-radius: 16px;
+
+  background: rgba(20, 22, 32, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.35),
+    0 8px 20px rgba(0, 0, 0, 0.2);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  animation:
+    toastSlideIn 0.35s ease-out forwards;
+
+  color: #ffffff;
+}
+
+
+/* SUCCESS */
+
+.login-toast.success {
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+
+/* ERROR */
+
+.login-toast.error {
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+
+/* ICON */
+
+.toast-icon {
+  flex-shrink: 0;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 19px;
+  font-weight: 700;
+}
+
+
+.login-toast.success .toast-icon {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+
+.login-toast.error .toast-icon {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+
+/* CONTENT */
+
+.toast-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  min-width: 0;
+}
+
+
+.toast-content strong {
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #ffffff;
+}
+
+
+.toast-content span {
+  font-size: 13px;
+  line-height: 1.4;
+
+  color: #b8bdc9;
+
+  overflow-wrap: anywhere;
+}
+
+
+/* ANIMATION */
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .login-toast {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+
+    width: auto;
+
+    padding: 14px 15px;
+
+    border-radius: 14px;
+  }
+
+  .toast-icon {
+    width: 34px;
+    height: 34px;
+
+    font-size: 17px;
+  }
+
+  .toast-content strong {
+    font-size: 13px;
+  }
+
+  .toast-content span {
+    font-size: 12px;
+  }
+}
+
+
+/* VERY SMALL PHONES */
+
+@media (max-width: 380px) {
+  .login-toast {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+
+    gap: 10px;
+
+    padding: 12px;
+  }
+
+  .toast-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
