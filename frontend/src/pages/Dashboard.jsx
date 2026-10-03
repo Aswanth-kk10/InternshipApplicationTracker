@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import API_URL from "../services/api";
+import "./Dashboard.css";
 
 function Dashboard() {
     const navigate = useNavigate();
 
     const [applications, setApplications] = useState([]);
+    const [allApplications, setAllApplications] = useState([]);
     const [statusFilter, setStatusFilter] = useState("All");
 
     // Logout
@@ -17,7 +19,7 @@ function Dashboard() {
     };
 
     // Get applications
-    const fetchApplications = async (status = "All") => {
+    const fetchApplications = async () => {
         try {
             const token = localStorage.getItem("token");
 
@@ -30,25 +32,17 @@ function Dashboard() {
                 }
             );
 
-            const allApplications = response.data.applications;
+            const data = response.data.applications || [];
 
-            // Filter applications on dashboard
-            const filteredApplications =
-                status === "All"
-                    ? allApplications
-                    : allApplications.filter(
-                          (application) =>
-                              application.status === status
-                      );
-
-            setApplications(filteredApplications);
+            setAllApplications(data);
+            setApplications(data);
 
         } catch (error) {
             console.log(error);
         }
     };
 
-    // Load applications when dashboard opens
+    // Load applications
     useEffect(() => {
         fetchApplications();
     }, []);
@@ -58,7 +52,17 @@ function Dashboard() {
         const selectedStatus = e.target.value;
 
         setStatusFilter(selectedStatus);
-        fetchApplications(selectedStatus);
+
+        if (selectedStatus === "All") {
+            setApplications(allApplications);
+        } else {
+            const filtered = allApplications.filter(
+                (application) =>
+                    application.status === selectedStatus
+            );
+
+            setApplications(filtered);
+        }
     };
 
     // Delete application
@@ -85,7 +89,7 @@ function Dashboard() {
 
             alert("Application deleted successfully!");
 
-            fetchApplications(statusFilter);
+            fetchApplications();
 
         } catch (error) {
             alert(
@@ -95,82 +99,355 @@ function Dashboard() {
         }
     };
 
+    // Count applications by status
+    const appliedCount = allApplications.filter(
+        (app) => app.status === "Applied"
+    ).length;
+
+    const shortlistedCount = allApplications.filter(
+        (app) => app.status === "Shortlisted"
+    ).length;
+
+    const interviewCount = allApplications.filter(
+        (app) => app.status === "Interview"
+    ).length;
+
+    const selectedCount = allApplications.filter(
+        (app) => app.status === "Selected"
+    ).length;
+
+    const rejectedCount = allApplications.filter(
+        (app) => app.status === "Rejected"
+    ).length;
+
     return (
-        <div>
-            <h1>Internship Application Tracker</h1>
+        <div className="dashboard-page">
 
-            <h2>My Applications</h2>
+            {/* ================= HEADER ================= */}
 
-            <button onClick={handleLogout}>
-                Logout
-            </button>
+            <header className="dashboard-header">
 
-            <br />
-            <br />
+                <div className="dashboard-brand">
 
-            <Link to="/add-application">
-                Add Application
-            </Link>
+                    <div className="dashboard-logo">
+                        💼
+                    </div>
 
-            <br />
-            <br />
+                    <div>
+                        <h1>Internship Tracker</h1>
+                        <span>Application Dashboard</span>
+                    </div>
 
-            <label>Filter by Status: </label>
+                </div>
 
-            <select
-                value={statusFilter}
-                onChange={handleFilter}
-            >
-                <option value="All">All</option>
-                <option value="Applied">Applied</option>
-                <option value="Shortlisted">Shortlisted</option>
-                <option value="Interview">Interview</option>
-                <option value="Selected">Selected</option>
-                <option value="Rejected">Rejected</option>
-            </select>
+                <button
+                    className="logout-button"
+                    onClick={handleLogout}
+                >
+                    Logout
+                </button>
 
-            <br />
-            <br />
+            </header>
 
-            {applications.length === 0 ? (
-                <p>No applications found.</p>
-            ) : (
-                <ul>
-                    {applications.map((application) => (
-                        <li key={application._id}>
+
+            {/* ================= MAIN ================= */}
+
+            <main className="dashboard-main">
+
+                {/* Welcome */}
+
+                <section className="dashboard-welcome">
+
+                    <div>
+                        <p className="welcome-small">
+                            Welcome back 👋
+                        </p>
+
+                        <h2>
+                            My Applications
+                        </h2>
+
+                        <p className="welcome-description">
+                            Keep track of your internship applications
+                            and monitor your progress.
+                        </p>
+                    </div>
+
+                    <Link
+                        to="/add-application"
+                        className="add-application-button"
+                    >
+                        + Add Application
+                    </Link>
+
+                </section>
+
+
+                {/* ================= STAT CARDS ================= */}
+
+                <section className="stats-grid">
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            📋
+                        </div>
+
+                        <div>
+                            <span>Total Applications</span>
                             <strong>
-                                {application.company}
+                                {allApplications.length}
                             </strong>
+                        </div>
 
-                            {" - "}
+                    </div>
 
-                            {application.position}
 
-                            {" - "}
+                    <div className="stat-card">
 
-                            {application.status}
+                        <div className="stat-icon">
+                            📝
+                        </div>
 
-                            {" "}
+                        <div>
+                            <span>Applied</span>
+                            <strong>
+                                {appliedCount}
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            ⭐
+                        </div>
+
+                        <div>
+                            <span>Shortlisted</span>
+                            <strong>
+                                {shortlistedCount}
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            🎯
+                        </div>
+
+                        <div>
+                            <span>Interviews</span>
+                            <strong>
+                                {interviewCount}
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            🎉
+                        </div>
+
+                        <div>
+                            <span>Selected</span>
+                            <strong>
+                                {selectedCount}
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div className="stat-card">
+
+                        <div className="stat-icon">
+                            ❌
+                        </div>
+
+                        <div>
+                            <span>Rejected</span>
+                            <strong>
+                                {rejectedCount}
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                {/* ================= APPLICATIONS ================= */}
+
+                <section className="applications-section">
+
+                    <div className="applications-header">
+
+                        <div>
+                            <h3>
+                                Your Applications
+                            </h3>
+
+                            <p>
+                                View and manage your internship applications.
+                            </p>
+                        </div>
+
+
+                        <div className="filter-box">
+
+                            <label htmlFor="status">
+                                Filter
+                            </label>
+
+                            <select
+                                id="status"
+                                value={statusFilter}
+                                onChange={handleFilter}
+                            >
+                                <option value="All">
+                                    All
+                                </option>
+
+                                <option value="Applied">
+                                    Applied
+                                </option>
+
+                                <option value="Shortlisted">
+                                    Shortlisted
+                                </option>
+
+                                <option value="Interview">
+                                    Interview
+                                </option>
+
+                                <option value="Selected">
+                                    Selected
+                                </option>
+
+                                <option value="Rejected">
+                                    Rejected
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* APPLICATION LIST */}
+
+                    {applications.length === 0 ? (
+
+                        <div className="empty-state">
+
+                            <div className="empty-icon">
+                                📂
+                            </div>
+
+                            <h3>
+                                No applications found
+                            </h3>
+
+                            <p>
+                                Start tracking your internship
+                                applications by adding one.
+                            </p>
 
                             <Link
-                                to={`/edit-application/${application._id}`}
+                                to="/add-application"
+                                className="empty-add-button"
                             >
-                                Edit
+                                + Add Application
                             </Link>
 
-                            {" "}
+                        </div>
 
-                            <button
-                                onClick={() =>
-                                    handleDelete(application._id)
-                                }
-                            >
-                                Delete
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            )}
+                    ) : (
+
+                        <div className="application-list">
+
+                            {applications.map((application) => (
+
+                                <div
+                                    className="application-card"
+                                    key={application._id}
+                                >
+
+                                    <div className="company-icon">
+                                        🏢
+                                    </div>
+
+
+                                    <div className="application-info">
+
+                                        <h4>
+                                            {application.company}
+                                        </h4>
+
+                                        <p>
+                                            {application.position}
+                                        </p>
+
+                                    </div>
+
+
+                                    <div className="application-status">
+
+                                        <span
+                                            className={`status-badge status-${application.status
+                                                .toLowerCase()
+                                                .replace(/\s+/g, "-")}`}
+                                        >
+                                            {application.status}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div className="application-actions">
+
+                                        <Link
+                                            to={`/edit-application/${application._id}`}
+                                            className="edit-button"
+                                        >
+                                            Edit
+                                        </Link>
+
+                                        <button
+                                            className="delete-button"
+                                            onClick={() =>
+                                                handleDelete(
+                                                    application._id
+                                                )
+                                            }
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            ))}
+
+                        </div>
+
+                    )}
+
+                </section>
+
+            </main>
+
         </div>
     );
 }
