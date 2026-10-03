@@ -4,12 +4,15 @@
 
 .register-page {
     min-height: 100vh;
+
     display: flex;
 
     background: #0f1117;
     color: #ffffff;
 
     font-family: "Inter", "Segoe UI", Arial, sans-serif;
+
+    overflow-x: hidden;
 }
 
 
@@ -27,6 +30,8 @@
 
     padding: 60px;
 
+    box-sizing: border-box;
+
     background:
         radial-gradient(
             circle at 20% 20%,
@@ -41,6 +46,7 @@
 }
 
 .register-hero-content {
+    width: 100%;
     max-width: 500px;
 }
 
@@ -110,6 +116,8 @@
     width: 25px;
     height: 25px;
 
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -147,6 +155,8 @@
 
     padding: 40px;
 
+    box-sizing: border-box;
+
     background: #0f1117;
 }
 
@@ -155,6 +165,8 @@
     max-width: 430px;
 
     padding: 42px;
+
+    box-sizing: border-box;
 
     background: #171a23;
 
@@ -181,6 +193,8 @@
     font-size: 28px;
 
     font-weight: 700;
+
+    letter-spacing: -0.3px;
 }
 
 .register-heading p {
@@ -189,6 +203,8 @@
     color: #8f96a5;
 
     font-size: 14px;
+
+    line-height: 1.5;
 }
 
 
@@ -310,6 +326,8 @@
     font-size: 14px;
 
     color: #858c9a;
+
+    text-align: center;
 }
 
 .login-link a {
@@ -326,7 +344,7 @@
 
 
 /* ================================
-   RESPONSIVE
+   TABLET / MOBILE
 ================================ */
 
 @media (max-width: 850px) {
@@ -337,7 +355,6 @@
 
     .register-hero {
         width: 100%;
-
         min-height: auto;
 
         padding: 45px 30px;
@@ -357,7 +374,6 @@
 
     .register-section {
         width: 100%;
-
         min-height: auto;
 
         padding: 30px 20px 50px;
@@ -369,29 +385,121 @@
 }
 
 
+/* ================================
+   MOBILE
+================================ */
+
 @media (max-width: 500px) {
 
     .register-hero {
-        padding: 35px 22px;
+        padding: 30px 18px;
+    }
+
+    .register-brand-icon {
+        width: 50px;
+        height: 50px;
+
+        margin-bottom: 22px;
+
+        font-size: 24px;
+
+        border-radius: 14px;
     }
 
     .register-hero-content h1 {
-        font-size: 34px;
+        font-size: 32px;
+
+        letter-spacing: -1px;
     }
 
     .register-hero-content > p {
-        font-size: 15px;
+        margin-top: 16px;
+
+        font-size: 14px;
+
+        line-height: 1.6;
     }
 
     .register-section {
-        padding: 20px 15px 40px;
+        padding: 15px 12px 35px;
     }
 
     .register-card {
-        padding: 28px 22px;
+        padding: 25px 18px;
+
+        border-radius: 16px;
+    }
+
+    .register-heading {
+        margin-bottom: 25px;
     }
 
     .register-heading h2 {
         font-size: 25px;
+    }
+
+    .register-heading p {
+        font-size: 13px;
+    }
+
+    .register-form-group {
+        margin-bottom: 18px;
+    }
+
+    .register-form-group label {
+        font-size: 13px;
+    }
+
+    .register-form-group input {
+        padding: 12px 13px;
+    }
+
+    .register-button {
+        padding: 12px;
+
+        font-size: 14px;
+    }
+
+    .login-link {
+        margin-top: 25px;
+
+        padding-top: 20px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* ================================
+   VERY SMALL PHONES
+================================ */
+
+@media (max-width: 360px) {
+
+    .register-hero {
+        padding: 25px 15px;
+    }
+
+    .register-hero-content h1 {
+        font-size: 28px;
+    }
+
+    .register-hero-content > p {
+        font-size: 13px;
+    }
+
+    .register-section {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .register-card {
+        padding: 22px 15px;
+
+        border-radius: 14px;
+    }
+
+    .register-heading h2 {
+        font-size: 23px;
     }
 }

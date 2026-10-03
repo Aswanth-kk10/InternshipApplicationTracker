@@ -1,32 +1,53 @@
+/* ========================================
+   ADD APPLICATION PAGE
+======================================== */
+
 .add-application-page {
     min-height: 100vh;
+
     background: #0f1117;
     color: #ffffff;
+
     font-family: "Inter", "Segoe UI", Arial, sans-serif;
+
     padding: 50px 20px;
+
     box-sizing: border-box;
+
+    overflow-x: hidden;
 }
 
 .add-application-container {
     width: 100%;
     max-width: 760px;
+
     margin: 0 auto;
 }
 
-/* Header */
+
+/* ========================================
+   HEADER
+======================================== */
 
 .add-application-header {
     display: flex;
     align-items: center;
+
     gap: 18px;
+
     margin-bottom: 32px;
 }
 
 .header-icon {
     width: 58px;
     height: 58px;
+
+    flex-shrink: 0;
+
     border-radius: 16px;
+
     background: #20243f;
+
     border: 1px solid #373d6a;
 
     display: flex;
@@ -38,55 +59,86 @@
 
 .add-application-header h1 {
     margin: 0 0 6px;
+
     font-size: 30px;
     font-weight: 700;
 }
 
 .add-application-header p {
     margin: 0;
+
     color: #7f8baa;
+
     font-size: 15px;
+
+    line-height: 1.5;
 }
 
-/* Form card */
+
+/* ========================================
+   FORM CARD
+======================================== */
 
 .application-form-card {
+    width: 100%;
+
     background: #171a23;
+
     border: 1px solid #292e3b;
+
     border-radius: 18px;
+
     overflow: hidden;
+
+    box-sizing: border-box;
 }
 
 .form-card-header {
     padding: 26px 30px;
+
     border-bottom: 1px solid #292e3b;
 }
 
 .form-card-header h2 {
     margin: 0 0 7px;
+
     font-size: 20px;
 }
 
 .form-card-header p {
     margin: 0;
+
     color: #7f8baa;
+
     font-size: 14px;
+
+    line-height: 1.5;
 }
 
-/* Form */
+
+/* ========================================
+   FORM
+======================================== */
 
 .application-form-card form {
     padding: 30px;
+
+    box-sizing: border-box;
 }
 
 .form-group {
+    width: 100%;
+
     margin-bottom: 24px;
 }
 
 .form-group label {
     display: block;
+
     margin-bottom: 9px;
+
     color: #d9ddea;
+
     font-size: 14px;
     font-weight: 600;
 }
@@ -95,16 +147,21 @@
 .form-group select {
     width: 100%;
     height: 52px;
+
     padding: 0 15px;
 
     box-sizing: border-box;
 
     background: #10131a;
+
     border: 1px solid #303542;
+
     border-radius: 10px;
 
     color: #ffffff;
+
     font-size: 15px;
+
     outline: none;
 
     transition: 0.2s ease;
@@ -117,21 +174,29 @@
 .form-group input:focus,
 .form-group select:focus {
     border-color: #7165f4;
-    box-shadow: 0 0 0 3px rgba(113, 101, 244, 0.12);
+
+    box-shadow:
+        0 0 0 3px rgba(113, 101, 244, 0.12);
 }
 
 .form-group select {
     cursor: pointer;
 }
 
-/* Buttons */
+
+/* ========================================
+   BUTTONS
+======================================== */
 
 .form-actions {
     display: flex;
+
     justify-content: flex-end;
+
     gap: 12px;
 
     margin-top: 32px;
+
     padding-top: 24px;
 
     border-top: 1px solid #292e3b;
@@ -139,30 +204,39 @@
 
 .cancel-button,
 .submit-button {
-    height: 48px;
+    min-height: 48px;
+
     padding: 0 22px;
 
     border-radius: 10px;
+
     font-size: 14px;
     font-weight: 600;
 
     cursor: pointer;
+
     transition: 0.2s ease;
+
+    box-sizing: border-box;
 }
 
 .cancel-button {
     background: transparent;
+
     color: #aab2c5;
+
     border: 1px solid #303542;
 }
 
 .cancel-button:hover {
     background: #20232d;
+
     color: #ffffff;
 }
 
 .submit-button {
     border: none;
+
     color: #ffffff;
 
     background: linear-gradient(
@@ -171,76 +245,255 @@
         #8b5cf6
     );
 
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.18);
+    box-shadow:
+        0 8px 20px rgba(99, 102, 241, 0.18);
 }
 
 .submit-button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.28);
+
+    box-shadow:
+        0 10px 25px rgba(99, 102, 241, 0.28);
 }
 
-/* Tip */
+
+/* ========================================
+   TIP
+======================================== */
 
 .application-tip {
     display: flex;
+
     align-items: flex-start;
+
     gap: 13px;
 
     margin-top: 20px;
+
     padding: 18px 20px;
 
     background: #151823;
+
     border: 1px solid #292e3b;
+
     border-radius: 14px;
 
     color: #aeb6c8;
+
+    box-sizing: border-box;
 }
 
 .application-tip > span {
+    flex-shrink: 0;
+
     font-size: 20px;
 }
 
 .application-tip strong {
     color: #ffffff;
+
     font-size: 14px;
 }
 
 .application-tip p {
     margin: 5px 0 0;
+
     font-size: 13px;
+
     line-height: 1.5;
 }
 
-/* Responsive */
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 700px) {
+
+    .add-application-page {
+        padding: 35px 18px;
+    }
+
+    .add-application-header {
+        gap: 14px;
+    }
+
+    .header-icon {
+        width: 52px;
+        height: 52px;
+
+        border-radius: 14px;
+
+        font-size: 24px;
+    }
+
+    .add-application-header h1 {
+        font-size: 26px;
+    }
+
+    .add-application-header p {
+        font-size: 14px;
+    }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
 
 @media (max-width: 600px) {
 
     .add-application-page {
-        padding: 30px 15px;
+        padding: 28px 14px 40px;
     }
 
     .add-application-header {
         align-items: flex-start;
+
+        gap: 12px;
+
+        margin-bottom: 24px;
+    }
+
+    .header-icon {
+        width: 48px;
+        height: 48px;
+
+        border-radius: 12px;
+
+        font-size: 22px;
     }
 
     .add-application-header h1 {
-        font-size: 24px;
+        font-size: 23px;
+
+        line-height: 1.2;
     }
 
-    .application-form-card form {
-        padding: 22px;
+    .add-application-header p {
+        margin-top: 2px;
+
+        font-size: 13px;
+
+        line-height: 1.4;
+    }
+
+    .application-form-card {
+        border-radius: 15px;
     }
 
     .form-card-header {
-        padding: 22px;
+        padding: 20px 18px;
+    }
+
+    .form-card-header h2 {
+        font-size: 18px;
+    }
+
+    .form-card-header p {
+        font-size: 13px;
+    }
+
+    .application-form-card form {
+        padding: 20px 18px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        margin-bottom: 7px;
+
+        font-size: 13px;
+    }
+
+    .form-group input,
+    .form-group select {
+        height: 50px;
+
+        padding: 0 13px;
+
+        font-size: 14px;
     }
 
     .form-actions {
         flex-direction: column-reverse;
+
+        gap: 10px;
+
+        margin-top: 27px;
+
+        padding-top: 20px;
     }
 
     .cancel-button,
     .submit-button {
         width: 100%;
+
+        min-height: 48px;
+    }
+
+    .application-tip {
+        gap: 10px;
+
+        padding: 15px;
+
+        border-radius: 12px;
+    }
+
+    .application-tip > span {
+        font-size: 18px;
+    }
+
+    .application-tip strong {
+        font-size: 13px;
+    }
+
+    .application-tip p {
+        font-size: 12px;
+    }
+}
+
+
+/* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+@media (max-width: 360px) {
+
+    .add-application-page {
+        padding: 22px 10px 30px;
+    }
+
+    .add-application-header {
+        gap: 10px;
+    }
+
+    .header-icon {
+        width: 44px;
+        height: 44px;
+
+        font-size: 20px;
+    }
+
+    .add-application-header h1 {
+        font-size: 21px;
+    }
+
+    .add-application-header p {
+        font-size: 12px;
+    }
+
+    .form-card-header {
+        padding: 18px 15px;
+    }
+
+    .application-form-card form {
+        padding: 18px 15px;
+    }
+
+    .application-tip {
+        padding: 13px;
     }
 }
