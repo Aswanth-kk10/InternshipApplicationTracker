@@ -8,7 +8,6 @@ function ForgotPassword() {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
-    const [resetToken, setResetToken] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,9 +18,12 @@ function ForgotPassword() {
                 { email }
             );
 
-            setResetToken(response.data.resetToken);
+            const token = response.data.resetToken;
 
             alert("Password reset token generated!");
+
+            // Automatically open Reset Password page
+            navigate(`/reset-password/${token}`);
 
         } catch (error) {
             alert(
@@ -61,8 +63,7 @@ function ForgotPassword() {
                         <h2>Reset Your Password</h2>
 
                         <p>
-                            Enter your registered email address to generate
-                            a password reset token.
+                            Enter your registered email address to continue.
                         </p>
 
                     </div>
@@ -90,30 +91,10 @@ function ForgotPassword() {
                             type="submit"
                             className="reset-button"
                         >
-                            🔑 Generate Reset Token
+                            🔑 Continue to Reset Password
                         </button>
 
                     </form>
-
-                    {/* Reset Token */}
-                    {resetToken && (
-                        <div className="reset-token-box">
-
-                            <div className="token-header">
-                                <span>🔑</span>
-                                <h3>Reset Token Generated</h3>
-                            </div>
-
-                            <p className="token-description">
-                                Use the token below to reset your password.
-                            </p>
-
-                            <div className="token-value">
-                                {resetToken}
-                            </div>
-
-                        </div>
-                    )}
 
                     {/* Back to Login */}
                     <button
@@ -132,11 +113,12 @@ function ForgotPassword() {
                     <span>💡</span>
 
                     <div>
-                        <strong>Forgot your password?</strong>
+                        <strong>Secure Password Reset</strong>
 
                         <p>
-                            Enter the email address associated with your
-                            account to generate a reset token.
+                            Enter the email associated with your account.
+                            You'll be taken directly to the password reset
+                            page after verification.
                         </p>
                     </div>
 

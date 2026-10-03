@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import API_URL from "../services/api";
+import "./ResetPassword.css";
 
 function ResetPassword() {
     const { token } = useParams();
@@ -39,46 +40,129 @@ function ResetPassword() {
     };
 
     return (
-        <div>
-            <h1>Reset Password</h1>
+        <div className="reset-password-page">
 
-            <form onSubmit={handleSubmit}>
+            <div className="reset-password-container">
 
-                <label>New Password</label>
-                <br />
+                {/* Header */}
+                <div className="reset-password-header">
 
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) =>
-                        setPassword(e.target.value)
-                    }
-                    required
-                />
+                    <div className="header-icon">
+                        🔐
+                    </div>
 
-                <br />
-                <br />
+                    <div>
+                        <h1>Reset Password</h1>
 
-                <label>Confirm Password</label>
-                <br />
+                        <p>
+                            Create a new password for your account
+                        </p>
+                    </div>
 
-                <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) =>
-                        setConfirmPassword(e.target.value)
-                    }
-                    required
-                />
+                </div>
 
-                <br />
-                <br />
+                {/* Form Card */}
+                <div className="reset-password-card">
 
-                <button type="submit">
-                    Reset Password
-                </button>
+                    <div className="form-card-header">
 
-            </form>
+                        <h2>Create New Password</h2>
+
+                        <p>
+                            Enter and confirm your new password below.
+                        </p>
+
+                    </div>
+
+                    <form onSubmit={handleSubmit}>
+
+                        {/* New Password */}
+                        <div className="form-group">
+
+                            <label htmlFor="password">
+                                New Password
+                            </label>
+
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder="Enter your new password"
+                                value={password}
+                                onChange={(e) =>
+                                    setPassword(e.target.value)
+                                }
+                                required
+                            />
+
+                        </div>
+
+                        {/* Confirm Password */}
+                        <div className="form-group">
+
+                            <label htmlFor="confirmPassword">
+                                Confirm New Password
+                            </label>
+
+                            <input
+                                id="confirmPassword"
+                                type="password"
+                                placeholder="Confirm your new password"
+                                value={confirmPassword}
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
+                                required
+                            />
+
+                        </div>
+
+                        {/* Password mismatch message */}
+                        {confirmPassword &&
+                            password !== confirmPassword && (
+                                <p className="password-error">
+                                    ⚠️ Passwords do not match
+                                </p>
+                            )}
+
+                        {/* Submit */}
+                        <button
+                            type="submit"
+                            className="reset-button"
+                        >
+                            🔑 Reset Password
+                        </button>
+
+                    </form>
+
+                    {/* Back to Login */}
+                    <button
+                        type="button"
+                        className="back-login-button"
+                        onClick={() => navigate("/login")}
+                    >
+                        ← Back to Login
+                    </button>
+
+                </div>
+
+                {/* Tip */}
+                <div className="reset-password-tip">
+
+                    <span>💡</span>
+
+                    <div>
+                        <strong>Password Tip</strong>
+
+                        <p>
+                            Choose a strong password that you don't use
+                            for other accounts.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
     );
 }
